@@ -9,20 +9,14 @@ export function setupServer() {
   const app = express();
 
   app.use(cors());
-  app.use(
-    pino({
-      transport: {
-        target: 'pino-pretty',
-      },
-    }),
-  );
+  app.use(pino(),);
   app.use(express.json());
 
-  app.use(contactsRouter);
-
-  app.use('*', notFoundHandler);
+  app.use('/api/contacts', contactsRouter);
 
   app.use(errorHandler);
+
+  app.use(/(.*)/, notFoundHandler);
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
