@@ -12,11 +12,11 @@ export function setupServer() {
   app.use(pino(),);
   app.use(express.json());
 
-  app.use(contactsRouter);
-
-  app.use('*', notFoundHandler);
+  app.use('/api/contacts', contactsRouter);
 
   app.use(errorHandler);
+
+  app.use(/(.*)/, notFoundHandler);
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
