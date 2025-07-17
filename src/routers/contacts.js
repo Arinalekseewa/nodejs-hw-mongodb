@@ -6,7 +6,7 @@ import {
     patchContactController,
     deleteContactByIdController
 } from '../controllers/contacts.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateCreateContact } from '../middlewares/validateCreateContact.js';
 
 const router = Router();
