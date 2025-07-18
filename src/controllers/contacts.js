@@ -47,7 +47,6 @@ export const createContactController = async (req, res) => {
 
 export const patchContactController = async (req, res) => {
     const { contactId } = req.params;
-
     const updatedContact = await updateContact(contactId, req.body, { upsert: true });
 
     if (!updatedContact) {
