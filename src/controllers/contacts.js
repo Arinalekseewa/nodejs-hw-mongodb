@@ -7,8 +7,7 @@ import {
   deleteContactById
 } from '../services/contacts.js';
 
-export const getContactsController = async (req, res, next) => {
-	try {
+export const getContactsController = async (req, res) => {
 	  const contacts = await getAllContacts();
 
 	  res.status(200).json({
@@ -16,13 +15,9 @@ export const getContactsController = async (req, res, next) => {
 	    message: 'Successfully found contacts!',
 	    data: contacts,
 	  });
-	} catch(err) {
-		next(err);
-	}
 };
 
 export const getContactByIdController = async (req, res, next) => {
-  try {
     const { contactId } = req.params;
     const contact = await getContactById(contactId);
 
@@ -37,13 +32,9 @@ export const getContactByIdController = async (req, res, next) => {
       message: `Successfully found contact with id ${contactId}!`,
       data: contact,
     });
-  } catch (err) {
-    next(err);
-  }
 };
 
-export const createContactController = async (req, res, next) => {
-  try {
+export const createContactController = async (req, res) => {
     const { name, phoneNumber, email, isFavourite, contactType } = req.body;
     const newContact = await createContact({ name, phoneNumber, email, isFavourite, contactType });
 
@@ -52,15 +43,10 @@ export const createContactController = async (req, res, next) => {
       message: "Successfully created a contact!",
       data: newContact,
     });
-  } catch (error) {
-    next(error);
-  }
 };
 
-export const patchContactController = async (req, res, next) => {
-  try {
+export const patchContactController = async (req, res) => {
     const { contactId } = req.params;
-
     const updatedContact = await updateContact(contactId, req.body, { upsert: true });
 
     if (!updatedContact) {
@@ -68,17 +54,11 @@ export const patchContactController = async (req, res, next) => {
     }
 
     res.status(200).json({
-      status: 200,
-      message: `Successfully upserted a contact!`,
       data: updatedContact,
     });
-  } catch (error) {
-    next(error);
-  }
 };
 
 export const deleteContactByIdController = async (req, res, next) => {
-  try {
     const { contactId } = req.params;
     const contact = await deleteContactById(contactId);
 
@@ -87,7 +67,4 @@ export const deleteContactByIdController = async (req, res, next) => {
     }
 
     res.status(204).send();
-  } catch (err) {
-    next(err);
-  }
 };

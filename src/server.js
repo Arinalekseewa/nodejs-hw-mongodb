@@ -12,7 +12,7 @@ export function setupServer() {
   app.use(pino(),);
   app.use(express.json());
 
-  app.use('/api/contacts', contactsRouter);
+  app.use('/contacts', contactsRouter);
 
   app.use(errorHandler);
 
