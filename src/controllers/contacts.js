@@ -29,6 +29,13 @@ export const getContactsController = async (req, res) => {
     filter,
   });
 
+  if (totalPages > 0 && page > totalPages) {
+    return res.status(404).json({
+      status: 404,
+      message: `Сторінка ${page} не існує. Всього доступно ${totalPages} сторінок.`,
+    });
+  }
+
 	res.status(200).json({
 	  status: 200,
 	  message: 'Successfully found contacts!',
