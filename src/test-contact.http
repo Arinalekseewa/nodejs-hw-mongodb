@@ -1,7 +1,0 @@
-PATCH http://localhost:3000/contacts/687679a8b89364ce57b9a722
-Content-Type: application/json
-
-{
-  "name": "Yulia Shevchenko",
-  "email": "yulia_shevchenko@email.com"
-}
