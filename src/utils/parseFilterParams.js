@@ -1,7 +1,9 @@
 const parseType = (contactType) => {
-  if (typeof contactType !== 'string') return;
-  const validTypes = ['work', 'home', 'personal'];
-  return validTypes.includes(contactType) ? contactType : undefined;
+  const isString = typeof contactType === 'string';
+  if (!isString) return;
+  const isType = (contactType) => ['work', 'home', 'personal'].includes(contactType);
+
+  if (isType(contactType)) return contactType;
 };
 
 const parseIsFavourite = (isFavourite) => {
