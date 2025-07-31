@@ -1,14 +1,20 @@
 const parseType = (contactType) => {
-  const isString = typeof contactType === 'string';
-  if (!isString) return;
-  const isType = (contactType) => ['work', 'home', 'personal'].includes(contactType);
+  if (typeof contactType !== 'string') return;
 
-  if (isType(contactType)) return contactType;
+  const validTypes = ['work', 'home', 'personal'];
+  if (validTypes.includes(contactType)) {
+    return contactType;
+  }
 };
 
 const parseIsFavourite = (isFavourite) => {
-  if (typeof isFavourite === 'undefined') return undefined;
-  return isFavourite === 'true';
+  if (typeof isFavourite === 'string') {
+    return isFavourite === 'true';
+  }
+  if (typeof isFavourite === 'boolean') {
+    return isFavourite;
+  }
+  return undefined;
 };
 
 export const parseFilterParams = (query) => {
@@ -19,7 +25,9 @@ export const parseFilterParams = (query) => {
 
   const filter = {};
   if (parsedType) filter.contactType = parsedType;
-  if (typeof parsedIsFavourite !== 'undefined') filter.isFavourite = parsedIsFavourite;
+  if (typeof parsedIsFavourite !== 'undefined') {
+    filter.isFavourite = parsedIsFavourite;
+  }
 
   return filter;
 };
