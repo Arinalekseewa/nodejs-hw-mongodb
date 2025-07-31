@@ -6,8 +6,8 @@ import {
     patchContactController,
     deleteContactByIdController
 } from '../controllers/contacts.js';
-import { isValidId } from '../../middlewares/isValidId.js';
-import { validateBody } from '../../middlewares/validateBody.js';
+import { isValidId } from '../middlewares/isValidId.js';
+import { validateBody } from '../middlewares/validateBody.js';
 import {
   createContactSchema,
   updateContactSchema,

@@ -14,21 +14,22 @@ export const getAllContacts = async ({
 
   const contactsQuery = Contact.find();
 
-   if (filter.gender) {
-    contactsQuery.where('type').equals(filter.contactType);
+   if (filter.contactType) {
+    contactsQuery.where('contactType').equals(filter.contactType);
   }
-  if (filter.maxAge) {
-    contactsQuery.where('favourite').equals(filter.isFavourite);
+  if (filter.isFavourite) {
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
   const [contactsCount, contacts] = await Promise.all([
-    Contact.find().merge(contactsQuery).countDocuments(),
-    contactsQuery
-      .skip(skip)
-      .limit(limit)
-      .sort({ [sortBy]: sortOrder })
-      .exec(),
-  ]);
+  contactsQuery.clone().countDocuments(),
+  contactsQuery
+    .skip(skip)
+    .limit(limit)
+    .sort({ [sortBy]: sortOrder })
+    .exec(),
+]);
+
 
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
 
