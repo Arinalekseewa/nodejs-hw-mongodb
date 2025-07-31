@@ -1,2 +1,0 @@
-GET  http://localhost:3000/contacts?type=home
-Content-Type: application/json
