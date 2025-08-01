@@ -23,7 +23,7 @@ export const createContactSchema = Joi.object({
     'boolean.base': 'Type should be a boolean'
   }),
   contactType: Joi.string().valid('home', 'work', 'personal').required().messages({
-    'any.only': 'contactType must be one of [home, work, personal]',
+    'any.required': 'contactType must be one of [home, work, personal]',
   }),
 });
 
@@ -48,6 +48,6 @@ export const updateContactSchema = Joi.object({
     'boolean.base': 'isFavourite should be a boolean',
   }),
   contactType: Joi.string().valid('home', 'work', 'personal').messages({
-    'any.only': 'contactType must be one of [home, work, personal]',
+    'any.required': 'contactType must be one of [home, work, personal]',
   }),
 }).or('name', 'email', 'phone', 'favourite', 'type');
