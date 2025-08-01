@@ -23,10 +23,7 @@ export const createContactSchema = Joi.object({
     'boolean.base': 'Type should be a boolean'
   }),
   contactType: Joi.string().min(3).max(20).required().messages({
-    'string.base': 'Type should be a string',
-    'string.min': 'Type should have at least 3 characters',
-    'string.max': 'Type should have at most 20 characters',
-    'any.required': 'Type is required',
+    'any.only': 'contactType must be one of [home, work, personal]',
   }),
 });
 
