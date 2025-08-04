@@ -13,7 +13,6 @@ import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 
 export const getContactsController = async (req, res) => {
-  const userId = req.user._id;
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const filter = parseFilterParams(req.query);
@@ -30,7 +29,7 @@ export const getContactsController = async (req, res) => {
     sortBy,
     sortOrder,
     filter,
-    userId,
+    userId: req.user._id,
   });
 
   if (totalPages > 0 && page > totalPages) {
@@ -89,7 +88,7 @@ export const createContactController = async (req, res) => {
     email,
     isFavourite,
     contactType,
-    userId,
+    userId: req.user._id,
   });
 
   res.status(201).json({
