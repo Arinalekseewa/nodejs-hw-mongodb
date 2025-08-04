@@ -95,9 +95,13 @@ export const createContactController = async (req, res) => {
   res.status(201).json({
     status: 201,
     message: "Successfully created a contact!",
-    data: newContact,
+    data: {
+      ...newContact.toObject(),
+      userId,
+    },
   });
 };
+
 
 export const upsertContactController = async (req, res, next) => {
   const { contactId } = req.params;
