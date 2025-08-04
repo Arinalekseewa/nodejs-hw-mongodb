@@ -89,7 +89,7 @@ export const createContactController = async (req, res) => {
     email,
     isFavourite,
     contactType,
-    owner: userId,
+    userId,
   });
 
   res.status(201).json({
