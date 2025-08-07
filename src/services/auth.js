@@ -4,6 +4,13 @@ import createHttpError from 'http-errors';
 import { UsersCollection } from '../db/models/user.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
+import jwt from 'jsonwebtoken';
+import { SMTP } from '../constants/index.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { sendEmail } from '../utils/sendMail.js';
+import handlebars from 'handlebars';
+import path from 'node:path';
+import fs from 'node:fs/promises';
 
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
@@ -83,4 +90,39 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
 
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
+};
+
+export const requestResetToken = async (email) => {
+  const TEMPLATES_DIR = path.resolve('templates');
+  const user = await UsersCollection.findOne({ email });
+
+  if (!user) {
+    throw createHttpError(404, 'User not found!');
+  }
+
+  const token = jwt.sign(
+    { sub: user._id, email },
+    getEnvVar('JWT_SECRET'),
+    { expiresIn: '5m' }
+  );
+
+  const filePath = path.join(TEMPLATES_DIR, 'reset-password-email.html');
+  const source = await fs.readFile(filePath, 'utf-8');
+  const template = handlebars.compile(source);
+
+  const html = template({
+    name: user.name || 'User',
+    link: `${getEnvVar('APP_DOMAIN')}/reset-password?token=${token}`,
+  });
+
+  try {
+    await sendEmail({
+      from: getEnvVar('SMTP_FROM'),
+      to: email,
+      subject: 'Reset your password',
+      html,
+    });
+  } catch (err) {
+    throw createHttpError(500, 'Failed to send the email, please try again later.');
+  }
 };
