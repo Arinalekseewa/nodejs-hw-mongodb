@@ -5,6 +5,7 @@ import { UsersCollection } from '../db/models/user.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 import jwt from 'jsonwebtoken';
+import { SMTP } from '../constants/index.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { sendEmail } from '../utils/sendMail.js';
 import handlebars from 'handlebars';
@@ -92,7 +93,7 @@ export const logoutUser = async (sessionId) => {
 };
 
 export const requestResetToken = async (email) => {
-  const TEMPLATES_DIR = path.resolve('templates');
+  const TEMPLATES_DIR = path.resolve('src', 'templates');
   const filePath = path.join(TEMPLATES_DIR, 'reset-password-email.html');
   const user = await UsersCollection.findOne({ email });
 
