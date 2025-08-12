@@ -51,6 +51,7 @@ export const createContact = async ({
   isFavourite,
   contactType,
   userId,
+  photo,
 }) => {
   const contact = await Contact.create({
     name,
@@ -59,6 +60,7 @@ export const createContact = async ({
     isFavourite,
     contactType,
     userId,
+    photo,
   });
 
   return contact;
