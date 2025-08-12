@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { initMongoDB } from './db/initMongoConnection.js';
+import { initMongoConnection } from './db/initMongoConnection.js';
 import { startServer } from './server.js';
 import { createDirIfNotExists } from './utils/createDirIfNotExists.js';
 import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from './constants/index.js';
@@ -7,7 +7,7 @@ import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from './constants/index.js';
 dotenv.config();
 
 const bootstrap = async () => {
-  await initMongoDB();
+  await initMongoConnection();
   await createDirIfNotExists(TEMP_UPLOAD_DIR);
   await createDirIfNotExists(UPLOAD_DIR);
   startServer();
