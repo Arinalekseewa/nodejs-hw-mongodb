@@ -93,7 +93,8 @@ export const logoutUser = async (sessionId) => {
 };
 
 export const requestResetToken = async (email) => {
-  const TEMPLATES_DIR = path.resolve('templates');
+  const TEMPLATES_DIR = path.resolve('src', 'templates');
+  const filePath = path.join(TEMPLATES_DIR, 'reset-password-email.html');
   const user = await UsersCollection.findOne({ email });
 
   if (!user) {
@@ -106,7 +107,6 @@ export const requestResetToken = async (email) => {
     { expiresIn: '5m' }
   );
 
-  const filePath = path.join(TEMPLATES_DIR, 'reset-password-email.html');
   const source = await fs.readFile(filePath, 'utf-8');
   const template = handlebars.compile(source);
 
