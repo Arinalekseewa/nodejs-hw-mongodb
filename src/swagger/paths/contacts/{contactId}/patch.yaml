@@ -25,21 +25,28 @@ requestBody:
           name:
             type: string
             example: 'Jane Doe'
+            description: Optional. New name of the contact.
           phoneNumber:
             type: string
             example: '380637944763'
+            description: Optional. New phone number.
           email:
             type: string
             example: 'jane.doe@example.com'
+            description: Optional. New email address.
           isFavourite:
             type: boolean
             example: true
+            description: Optional. Update favourite status.
           contactType:
             type: string
+            enum: ['work', 'home', 'personal']
             example: personal
+            description: Optional. Update type of contact.
           photo:
             type: string
-            example: https://res.cloudinary.com/uqwgdu/image/upload/image2.png
+            format: binary
+            description: Optional. New photo file for the contact.
 responses:
   '200':
     description: Successfully updated contact
@@ -59,7 +66,38 @@ responses:
               type: string
               example: Contact successfully updated
             data:
-              $ref: '../../../components/schemas/contacts.yaml'
+              type: object
+              required:
+                - _id
+                - name
+                - phoneNumber
+                - email
+                - isFavourite
+                - contactType
+                - photo
+              properties:
+                _id:
+                  type: string
+                  example: '65ca67e7ae7f10c88b598384'
+                name:
+                  type: string
+                  example: 'Jane Doe'
+                phoneNumber:
+                  type: string
+                  example: '380637944763'
+                email:
+                  type: string
+                  example: 'jane.doe@example.com'
+                isFavourite:
+                  type: boolean
+                  example: true
+                contactType:
+                  type: string
+                  enum: ['work', 'home', 'personal']
+                  example: personal
+                photo:
+                  type: string
+                  example: 'https://res.cloudinary.com/uqwgdu/image/upload/image2.png'
   '400':
     description: Invalid input data
     content:
@@ -77,7 +115,7 @@ responses:
               type: string
               example: Invalid input data
   '404':
-    description: Contacts not found
+    description: Contact not found
     content:
       application/json:
         schema:
@@ -91,4 +129,4 @@ responses:
               example: 404
             message:
               type: string
-              example: Contacts not found
+              example: Contact not found
