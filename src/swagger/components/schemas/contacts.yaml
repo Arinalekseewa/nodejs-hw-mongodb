@@ -9,30 +9,30 @@ required:
   - photo
 properties:
   _id:
-    description: "Contact's id"
+    description: 'Contact id'
     type: string
     example: 65e4decdd286b30065d54af9
   name:
-    description: "Contact's name"
+    description: 'Contact name'
     type: string
     example: 'John Doe'
   phoneNumber:
-    description: "Contact's phone number"
+    description: 'Contact phone number'
     type: string
     example: '380637944763'
   email:
-    description: "Contact's email"
+    description: 'Contact email'
     type: string
     example: 'olena.example@gmail.com'
   isFavourite:
-    description: "Contact's favourite"
+    description: 'Contact favourite'
     type: boolean
     example: false
   contactType:
-    description: "Contact's type"
+    description: 'Contact type'
     type: string
     example: work
   photo:
-    description: "Link to student's photo"
+    description: 'Link to contact photo'
     type: string
     example: https://res.cloudinary.com/uqwgdu/image/upload/image.png

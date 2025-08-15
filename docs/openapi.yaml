@@ -8,9 +8,7 @@ info:
   description: This is a documentation of contacts app
 tags:
   - name: Contacts
-    description: Operations about users.
-  - name: Auth
-    description: Auth operations.
+    description: Operations about contacts.
 servers:
   - url: https://contacts-app-sr3b.onrender.com
 paths:
