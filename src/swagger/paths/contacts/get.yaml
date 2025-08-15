@@ -1,8 +1,8 @@
 tags:
-  - Contacts
+  - Contact
 summary: Get list of contacts
 operationId: getContacts
-description: 'Get list of users with this endpoint'
+description: 'Get list of contacts with optional filters, sorting, and pagination'
 security:
   - bearerAuth: []
 parameters:
@@ -10,7 +10,7 @@ parameters:
     name: page
     schema:
       type: integer
-    example: 1
+      example: 1
   - in: query
     name: perPage
     schema:
@@ -21,7 +21,7 @@ parameters:
     schema:
       type: string
       example: 'contactType'
-    description: 'Default value - personal'
+    description: 'Field to sort by'
   - in: query
     name: sortOrder
     schema:
@@ -29,11 +29,18 @@ parameters:
       enum: ['asc', 'desc']
       example: 'asc'
   - in: query
-    name: filter
+    name: contactType
     schema:
       type: string
       enum: ['work', 'personal', 'home']
       example: 'home'
+    description: 'Filter contacts by type'
+  - in: query
+    name: isFavourite
+    schema:
+      type: boolean
+      example: true
+    description: 'Filter contacts by favourite status'
 responses:
   '200':
     description: Successfully found contacts!
