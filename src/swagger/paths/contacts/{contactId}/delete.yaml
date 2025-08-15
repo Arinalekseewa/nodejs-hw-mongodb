@@ -1,5 +1,5 @@
 tags:
-  - Contacts
+  - Contact
 summary: Delete contact by ID
 operationId: deleteContactById
 description: >
@@ -16,21 +16,7 @@ parameters:
       type: string
       example: '65ca67e7ae7f10c88b598384'
 responses:
-  '200':
+  '204':
     description: Successfully deleted contact
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - status
-            - message
-          properties:
-            status:
-              type: integer
-              example: 200
-            message:
-              type: string
-              example: Contact successfully deleted
   '404':
     description: Contact not found

@@ -1,5 +1,5 @@
 tags:
-  - Contacts
+  - Contact
 summary: Create contact
 operationId: createContact
 description: 'Create a contact with payload'
@@ -13,23 +13,18 @@ requestBody:
         required:
           - name
           - phoneNumber
-          - email
           - contactType
         properties:
           name:
-            description: "Contact's name"
+            description: 'Contact name'
             type: string
             example: 'John Doe'
           phoneNumber:
-            description: "Contact's phone number"
+            description: 'Contact phone number'
             type: string
             example: '380637944763'
-          email:
-            description: "Contact's email"
-            type: string
-            example: olena.example@gmail.com
           contactType:
-            description: "Contact's type"
+            description: 'Contact type'
             type: string
             enum: ['work', 'personal', 'home']
 responses:
@@ -55,3 +50,17 @@ responses:
               $ref: ../../components/schemas/contacts.yaml
   '400':
     description: Invalid input data
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Invalid input data

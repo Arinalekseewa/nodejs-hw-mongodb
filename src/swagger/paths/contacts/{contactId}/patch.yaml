@@ -1,5 +1,5 @@
 tags:
-  - Contacts
+  - Contact
 summary: Update contact by ID
 operationId: updateContactById
 description: >
@@ -18,7 +18,7 @@ parameters:
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/form-data:
       schema:
         type: object
         properties:
@@ -62,5 +62,33 @@ responses:
               $ref: '../../../components/schemas/contacts.yaml'
   '400':
     description: Invalid input data
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Invalid input data
   '404':
-    description: Contact not found
+    description: Contacts not found
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: Contacts not found
