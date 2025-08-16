@@ -66,38 +66,7 @@ responses:
               type: string
               example: Contact successfully updated
             data:
-              type: object
-              required:
-                - _id
-                - name
-                - phoneNumber
-                - email
-                - isFavourite
-                - contactType
-                - photo
-              properties:
-                _id:
-                  type: string
-                  example: '65ca67e7ae7f10c88b598384'
-                name:
-                  type: string
-                  example: 'Jane Doe'
-                phoneNumber:
-                  type: string
-                  example: '380637944763'
-                email:
-                  type: string
-                  example: 'jane.doe@example.com'
-                isFavourite:
-                  type: boolean
-                  example: true
-                contactType:
-                  type: string
-                  enum: ['work', 'home', 'personal']
-                  example: personal
-                photo:
-                  type: string
-                  example: 'https://res.cloudinary.com/uqwgdu/image/upload/image2.png'
+              $ref: ../../../components/schemas/contacts.yaml
   '400':
     description: Invalid input data
     content:
