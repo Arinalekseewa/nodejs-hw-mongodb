@@ -205,6 +205,7 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -218,21 +219,37 @@
                   "name": {
                     "description": "Contact name",
                     "type": "string",
-                    "example": "John Doe"
+                    "example": "Jane Doe"
                   },
                   "phoneNumber": {
                     "description": "Contact phone number",
                     "type": "string",
                     "example": "380637944763"
                   },
+                  "isFavourite": {
+                    "description": "Contact favourite",
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "email": {
+                    "description": "Contact email",
+                    "type": "string",
+                    "example": "jane.doe@example.com"
+                  },
                   "contactType": {
                     "description": "Contact type",
                     "type": "string",
                     "enum": [
                       "work",
-                      "personal",
-                      "home"
-                    ]
+                      "home",
+                      "personal"
+                    ],
+                    "example": "personal"
+                  },
+                  "photo": {
+                    "description": "Contact photo",
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -261,7 +278,6 @@
                       "example": "Successfully created a contact!"
                     },
                     "data": {
-                      "type": "object",
                       "$ref": "#/components/schemas/contacts"
                     }
                   }
@@ -469,51 +485,7 @@
                       "example": "Contact successfully updated"
                     },
                     "data": {
-                      "type": "object",
-                      "required": [
-                        "_id",
-                        "name",
-                        "phoneNumber",
-                        "email",
-                        "isFavourite",
-                        "contactType",
-                        "photo"
-                      ],
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "65ca67e7ae7f10c88b598384"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Jane Doe"
-                        },
-                        "phoneNumber": {
-                          "type": "string",
-                          "example": "380637944763"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "jane.doe@example.com"
-                        },
-                        "isFavourite": {
-                          "type": "boolean",
-                          "example": true
-                        },
-                        "contactType": {
-                          "type": "string",
-                          "enum": [
-                            "work",
-                            "home",
-                            "personal"
-                          ],
-                          "example": "personal"
-                        },
-                        "photo": {
-                          "type": "string",
-                          "example": "https://res.cloudinary.com/uqwgdu/image/upload/image2.png"
-                        }
-                      }
+                      "$ref": "#/components/schemas/contacts"
                     }
                   }
                 }
@@ -599,7 +571,28 @@
             "description": "Successfully deleted contact"
           },
           "404": {
-            "description": "Contact not found"
+            "description": "Contact not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id 65ca67e7ae7f10c88b598384 not found"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

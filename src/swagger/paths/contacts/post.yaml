@@ -6,6 +6,7 @@ description: 'Create a contact with payload'
 security:
   - bearerAuth: []
 requestBody:
+  required: true
   content:
     multipart/form-data:
       schema:
@@ -18,15 +19,28 @@ requestBody:
           name:
             description: 'Contact name'
             type: string
-            example: 'John Doe'
+            example: 'Jane Doe'
           phoneNumber:
             description: 'Contact phone number'
             type: string
             example: '380637944763'
+          isFavourite:
+            description: 'Contact favourite'
+            type: boolean
+            example: true
+          email:
+            description: 'Contact email'
+            type: string
+            example: 'jane.doe@example.com'
           contactType:
             description: 'Contact type'
             type: string
-            enum: ['work', 'personal', 'home']
+            enum: ['work', 'home', 'personal']
+            example: personal
+          photo:
+            description: 'Contact photo'
+            type: string
+            format: binary
 responses:
   '201':
     description: Creates a contact
@@ -46,7 +60,6 @@ responses:
               type: string
               example: Successfully created a contact!
             data:
-              type: object
               $ref: ../../components/schemas/contacts.yaml
   '400':
     description: Invalid input data
